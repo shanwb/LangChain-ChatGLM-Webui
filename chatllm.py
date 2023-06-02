@@ -122,6 +122,7 @@ class ChatLLM(LLM):
                    device_map: Optional[Dict[str, int]] = None,
                    **kwargs):
         if 'chatglm' in self.model_name_or_path.lower():
+            print("chatglm goto load")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_or_path,
                                                        trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path))
 

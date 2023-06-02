@@ -127,18 +127,21 @@ class ChatLLM(LLM):
                                                        trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path))
 
             if torch.cuda.is_available() and llm_device.lower().startswith("cuda"):
-                print("gpu")
                 num_gpus = torch.cuda.device_count()
+                print("gpu num_gpus:" + num_gpus)
+
                 if num_gpus < 2 and device_map is None:
                     self.model = (AutoModel.from_pretrained(
                         self.model_name_or_path, trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path), 
                         **kwargs).half().cuda())
+                    print("half cuda")
                 else:
                     from accelerate import dispatch_model
 
                     model = AutoModel.from_pretrained(self.model_name_or_path,
                                                     trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path),
                                                     **kwargs).half()
+                    print("half")
 
                     if device_map is None:
                         device_map = auto_configure_device_map(num_gpus)

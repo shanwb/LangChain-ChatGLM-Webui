@@ -81,7 +81,7 @@ class KnowledgeBasedChatLLM:
             self.llm.model_type = 'vicuna'
             self.llm.model_name_or_path = llm_model_dict['vicuna'][
                 large_language_model]
-        self.llm.load_llm(llm_device=LLM_DEVICE, num_gpus=num_gpus)
+        self.llm.load_llm(llm_device=LLM_DEVICE, num_gpus=num_gpus, trust_remote_code=True)
 
     def init_knowledge_vector_store(self, filepath):
 
@@ -169,6 +169,7 @@ def init_model():
         knowladge_based_chat_llm.llm._call("你好")
         return """初始模型已成功加载，可以开始对话"""
     except Exception as e:
+        print("1111111111")
         print(e)
         return """模型未成功加载，请重新选择模型后点击"重新加载模型"按钮"""
 

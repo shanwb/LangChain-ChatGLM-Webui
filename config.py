@@ -19,7 +19,7 @@ COLLECTION_NAME='my_collection'
 
 
 # init model config
-init_llm = "ChatGLM-6B-int8"
+init_llm = "ChatGLM-6B"
 init_embedding_model = "text2vec-base"
 
 # model config
@@ -36,7 +36,7 @@ embedding_model_dict = {
 
 llm_model_dict = {
     "chatglm": {
-        "ChatGLM-6B": "THUDM/chatglm-6b",
+        "ChatGLM-6B": "/home/hypatia/chaglm-data",
         "ChatGLM-6B-int4": "THUDM/chatglm-6b-int4",
         "ChatGLM-6B-int8": "THUDM/chatglm-6b-int8",
         "ChatGLM-6b-int4-qe": "THUDM/chatglm-6b-int4-qe"

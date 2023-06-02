@@ -123,9 +123,10 @@ class ChatLLM(LLM):
                    **kwargs):
         if 'chatglm' in self.model_name_or_path.lower():
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_or_path,
-                                                       trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path))                            
-            if torch.cuda.is_available() and llm_device.lower().startswith("cuda"):
+                                                       trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path))
 
+            if torch.cuda.is_available() and llm_device.lower().startswith("cuda"):
+                print("gpu")
                 num_gpus = torch.cuda.device_count()
                 if num_gpus < 2 and device_map is None:
                     self.model = (AutoModel.from_pretrained(
@@ -143,6 +144,7 @@ class ChatLLM(LLM):
 
                     self.model = dispatch_model(model, device_map=device_map)
             else:
+                print("cpu")
                 self.model = (AutoModel.from_pretrained(
                     self.model_name_or_path,
                     trust_remote_code=True, cache_dir=os.path.join(MODEL_CACHE_PATH, self.model_name_or_path)).float().to(llm_device))

@@ -128,7 +128,7 @@ class ChatLLM(LLM):
 
             if torch.cuda.is_available() and llm_device.lower().startswith("cuda"):
                 num_gpus = torch.cuda.device_count()
-                print("gpu num_gpus:" + num_gpus)
+                print("gpu num_gpus:" + str(num_gpus))
 
                 if num_gpus < 2 and device_map is None:
                     self.model = (AutoModel.from_pretrained(
